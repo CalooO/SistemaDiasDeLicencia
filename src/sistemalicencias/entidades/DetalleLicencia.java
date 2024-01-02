@@ -12,6 +12,7 @@ package sistemalicencias.entidades;
 public class DetalleLicencia {
     private int idDetalleVenta, diasRestantes;
     private Licencia licencia;
+    private int dias dias;
     
     public DetalleLicencia(){
         

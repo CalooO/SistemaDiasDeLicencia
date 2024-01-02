@@ -5,6 +5,8 @@
  */
 package sistemalicencias.entidades;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author calo_
@@ -13,20 +15,29 @@ public class Empleado {
     private String nombre;
     private String apellido;
     private String dni;
-    private int maxDias;
     private int idEmpleado;
     private String telefono;
+    private LocalDate fechaIngreso;
     
     public Empleado(){
         
     }
 
-    public Empleado(String nombre, String apellido, String dni, int maxDias, int idEmpleado, int telefono) {
+    public Empleado(String nombre, String apellido, String dni, int idEmpleado, String telefono, LocalDate fechaIngreso) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.maxDias = maxDias;
         this.idEmpleado = idEmpleado;
+        this.telefono = telefono;
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public LocalDate getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(LocalDate fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
 
     public String getTelefono() {
@@ -59,14 +70,6 @@ public class Empleado {
 
     public void setDni(String dni) {
         this.dni = dni;
-    }
-
-    public int getMaxDias() {
-        return maxDias;
-    }
-
-    public void setMaxDias(int maxDias) {
-        this.maxDias = maxDias;
     }
 
     public int getIdEmpleado() {
