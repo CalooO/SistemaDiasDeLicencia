@@ -6,6 +6,7 @@
 package sistemalicencias.entidades;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -17,13 +18,13 @@ public class Empleado {
     private String dni;
     private int idEmpleado;
     private String telefono;
-    private LocalDate fechaIngreso;
+    private Date fechaIngreso;
     
     public Empleado(){
         
     }
 
-    public Empleado(String nombre, String apellido, String dni, int idEmpleado, String telefono, LocalDate fechaIngreso) {
+    public Empleado(String nombre, String apellido, String dni, int idEmpleado, String telefono, Date fechaIngreso) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -32,11 +33,11 @@ public class Empleado {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public LocalDate getFechaIngreso() {
+    public Date getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(LocalDate fechaIngreso) {
+    public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 

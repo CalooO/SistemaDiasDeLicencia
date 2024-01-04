@@ -16,5 +16,5 @@ public class DetalleLicenciaData {
 
     public DetalleLicenciaData() {
         con=conexion.getConexion();
-    }
+    }  
 }
