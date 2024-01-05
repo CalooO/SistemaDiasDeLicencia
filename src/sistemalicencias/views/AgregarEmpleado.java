@@ -69,6 +69,12 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Teléfono");
 
+        jtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtNombreActionPerformed(evt);
+            }
+        });
+
         jtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtApellidoActionPerformed(evt);
@@ -211,6 +217,13 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
                     empleado.setFechaIngreso(fecha);
                     
                     ed.guardarEmpleado(empleado);
+                    
+                    jtNombre.setText("");
+                    jtApellido.setText("");
+                    jtDocumento.setText("");
+                    jtTelefono.setText("");
+                    jtFecha.setDate(null);
+                    
                 }  else {
                     JOptionPane.showMessageDialog(this, "Quedan campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
                 }
@@ -235,6 +248,10 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtNombreActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

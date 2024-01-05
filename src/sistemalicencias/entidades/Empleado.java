@@ -19,18 +19,27 @@ public class Empleado {
     private int idEmpleado;
     private String telefono;
     private Date fechaIngreso;
+    private int estado;
     
     public Empleado(){
         
     }
 
-    public Empleado(String nombre, String apellido, String dni, int idEmpleado, String telefono, Date fechaIngreso) {
+    public Empleado(String nombre, String apellido, String dni, int idEmpleado, String telefono, Date fechaIngreso, int estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.idEmpleado = idEmpleado;
         this.telefono = telefono;
         this.fechaIngreso = fechaIngreso;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public Date getFechaIngreso() {
