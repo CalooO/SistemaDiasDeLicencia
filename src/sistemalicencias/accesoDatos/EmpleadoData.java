@@ -27,8 +27,8 @@ public class EmpleadoData {
     }
     
     public void guardarEmpleado(Empleado empleado){
-        String sql="Insert into empleado (apellido, nombre, dni, telefono, fechaIngreso, estado) "
-                + "Values (?,?,?,?,?,1)";
+        String sql="Insert into empleado (apellido, nombre, dni, telefono, fechaIngreso, diasMax, estado) "
+                + "Values (?,?,?,?,?,?,1)";
         
         try {
             PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -37,6 +37,7 @@ public class EmpleadoData {
             ps.setString(3, empleado.getDni());
             ps.setString(4, empleado.getTelefono());
             ps.setDate(5, new Date(empleado.getFechaIngreso().getTime()));
+            ps.setInt(6, empleado.getDiasMax());
             //ps.setDate(4, empleado.getFechaIngreso());
             
             ps.executeUpdate();
@@ -57,7 +58,7 @@ public class EmpleadoData {
     }
     
     public ArrayList<Empleado> listarEmpleado (){
-        String sql="select * from empleado ";
+        String sql="select * from empleado where estado = 1";
         ArrayList<Empleado> listaEmpleados = new ArrayList<>();
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -68,6 +69,8 @@ public class EmpleadoData {
                 empleado.setNombre(rs.getString("nombre"));
                 empleado.setDni(rs.getString("dni"));
                 empleado.setTelefono(rs.getString("telefono"));
+                empleado.setFechaIngreso(rs.getDate("fechaIngreso"));
+                empleado.setDiasMax(rs.getInt("diasMax"));
                 empleado.setEstado(rs.getInt("estado"));
                 
                 listaEmpleados.add(empleado);
@@ -124,6 +127,8 @@ public class EmpleadoData {
                 empleado.setNombre(rs.getString("nombre"));
                 empleado.setDni(rs.getString("dni")); //??
                 empleado.setTelefono(rs.getString("telefono"));
+                empleado.setFechaIngreso(rs.getDate("fechaIngreso"));
+                empleado.setDiasMax(rs.getInt("diasMax"));
                 empleado.setEstado(rs.getInt("estado"));
                 listaEmpleado.add(empleado);
            }
@@ -134,5 +139,31 @@ public class EmpleadoData {
         }
         return listaEmpleado;
     }
+     
+     public void actualizarDiasMax(String dni, int nuevosDiasMax) {
+        String sql = "UPDATE empleado SET diasMax = ? WHERE dni = ?";
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, nuevosDiasMax);
+            ps.setString(2, dni);
+
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                
+                JOptionPane.showMessageDialog(null, "La licencia fue generada exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error, la licencia no fue generada.");
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al ingresas a la tabla de empleados: " + ex.getMessage());
+        }
+    }
+
     
 }

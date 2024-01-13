@@ -7,13 +7,17 @@ package sistemalicencias.views;
 
 import java.awt.Image;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import sistemalicencias.accesoDatos.EmpleadoData;
 import sistemalicencias.entidades.Empleado;
+import static sistemalicencias.views.LicenciaEmpleados.convertirLocalDateTimeADate;
 
 /**
  *
@@ -205,6 +209,7 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
                     String telefono = jtTelefono.getText();
                     Date fecha = jtFecha.getDate();
                     
+                    
                     Empleado empleado = new Empleado();
                     empleado.setApellido(apellido);
                     empleado.setNombre(nombre);
@@ -215,7 +220,8 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
                     }
                     empleado.setDni(documento);
                     empleado.setFechaIngreso(fecha);
-                    
+                    empleado.setDiasMax(calcularDias(fecha));
+                    System.out.println("Días máximos calculados: " + calcularDias(fecha));
                     ed.guardarEmpleado(empleado);
                     
                     jtNombre.setText("");
@@ -224,10 +230,10 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
                     jtTelefono.setText("");
                     jtFecha.setDate(null);
                     
-                }  else {
-                    JOptionPane.showMessageDialog(this, "Quedan campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
-                }
-
+                    
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Quedan campos vacios", "Error", JOptionPane.WARNING_MESSAGE);
+                    }
              
 
         } catch (java.lang.RuntimeException e) {
@@ -279,9 +285,34 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
         this.repaint();
     }
 
-    
-   
+    private int calcularDias(Date fecha){
+        
+        
+        Date fechaDeIngreso = fecha;
+                    LocalDateTime fechaHoraActual = LocalDateTime.now();
+                    Date fechaActual = convertirLocalDateTimeADate(fechaHoraActual);
+                    long diferenciaDias = TimeUnit.MILLISECONDS.toDays(fechaActual.getTime() - fechaDeIngreso.getTime());
+                    int diasMax;
+                    if(diferenciaDias > 7305){
+                        diasMax = 30; 
+                    } else if(diferenciaDias > 5473){
+                        diasMax = 25;
+                    } else if(diferenciaDias > 3652){
+                        diasMax = 20;
+                    } else if(diferenciaDias > 365){
+                        diasMax = 15;
+                    } else {
+                        diasMax = 0;
+                    } 
+                    
+                    return diasMax;
+                    
+    }
 
-              
-   
+   public static Date convertirLocalDateTimeADate(LocalDateTime localDateTime) {
+        // Convertir LocalDateTime a Date
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return date;
+    }
+
 }

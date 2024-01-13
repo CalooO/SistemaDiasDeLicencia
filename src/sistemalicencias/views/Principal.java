@@ -218,6 +218,13 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        LicenciaEmpleados a = new LicenciaEmpleados();
+        a.setVisible(true);
+        a.setSize(710,635);
+        jdp.add(a);
+        jdp.moveToFront(a);
+        a.setResizable(false);
+        a.setLocation(-5, -30);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

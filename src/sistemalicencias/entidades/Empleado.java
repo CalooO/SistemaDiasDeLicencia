@@ -20,6 +20,7 @@ public class Empleado {
     private String telefono;
     private Date fechaIngreso;
     private int estado;
+    private int diasMax;
     
     public Empleado(){
         
@@ -40,6 +41,14 @@ public class Empleado {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public int getDiasMax() {
+        return diasMax;
+    }
+
+    public void setDiasMax(int diasMax) {
+        this.diasMax = diasMax;
     }
 
     public Date getFechaIngreso() {
