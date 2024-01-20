@@ -6,6 +6,7 @@
 package sistemalicencias.entidades;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -15,15 +16,26 @@ public class Licencia {
     private int idLicencia;
     private Empleado empleado;
     private LocalDate fechaLicencia;
+    private String dni;
     
     public Licencia(){
         
     }
 
-    public Licencia(int idLicencia, Empleado empleado, LocalDate fechaLicencia) {
+    public Licencia(int idLicencia, Empleado empleado, LocalDate fechaLicencia, String dni) {
         this.idLicencia = idLicencia;
         this.empleado = empleado;
         this.fechaLicencia = fechaLicencia;
+        this.dni = dni;
+       
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public int getIdLicencia() {

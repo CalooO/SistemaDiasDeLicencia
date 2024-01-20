@@ -84,61 +84,38 @@ public class EmpleadoData {
     }
     
     
-    public ArrayList<Empleado> listarClientePorApellidoYdni (String dni, String ape){
-        PreparedStatement ps=null;
-        String sql=null;
-        ArrayList<Empleado> listaEmpleado=new ArrayList<>();
-        int opc =0;
-        
-        if(!dni.isEmpty() && !ape.isEmpty()){
-            opc=3;                                                                                                          
-        }else if(!ape.isEmpty()){
-            opc=2;                                                                                                        
-        }else if(!dni.isEmpty()){
-            opc=1;                                                                                                   
-        }
-        try {
-        switch(opc){
-            case 1:
-                sql="select * from empleado where dni LIKE ?";
-                dni=dni+"%";
-                ps=con.prepareStatement(sql);
-                ps.setString(1, dni);break;
-            case 2:
-                sql="select * from empleado where apellido LIKE ?";
-                ape=ape+"%";
-                ps=con.prepareStatement(sql);
-                ps.setString(1, ape);break;
-            case 3:
-                sql="select * from empleado where dni LIKE ? and apellido LIKE ?";
-                dni=dni+"%";
-                ape=ape+"%";
-                ps=con.prepareStatement(sql);
-                ps.setString(1, dni);
-                ps.setString(2, ape);
-                break;
-                    }
+    public ArrayList<Empleado> listarEmpleadoPorDni(String dni) {
+    PreparedStatement ps = null;
+    String sql = "SELECT * FROM empleado WHERE dni LIKE ?";
+    ArrayList<Empleado> listaEmpleado = new ArrayList<>();
 
-                ResultSet rs=ps.executeQuery();
-                
-           while(rs.next()){
-                Empleado empleado=new Empleado();
-                empleado.setApellido(rs.getString("apellido"));
-                empleado.setNombre(rs.getString("nombre"));
-                empleado.setDni(rs.getString("dni")); //??
-                empleado.setTelefono(rs.getString("telefono"));
-                empleado.setFechaIngreso(rs.getDate("fechaIngreso"));
-                empleado.setDiasMax(rs.getInt("diasMax"));
-                empleado.setEstado(rs.getInt("estado"));
-                listaEmpleado.add(empleado);
-           }
-            ps.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla de empleados "+ex.getMessage());
+    try {
+        dni = dni + "%";
+        ps = con.prepareStatement(sql);
+        ps.setString(1, dni);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Empleado empleado = new Empleado();
+            empleado.setApellido(rs.getString("apellido"));
+            empleado.setNombre(rs.getString("nombre"));
+            empleado.setDni(rs.getString("dni"));
+            empleado.setTelefono(rs.getString("telefono"));
+            empleado.setFechaIngreso(rs.getDate("fechaIngreso"));
+            empleado.setDiasMax(rs.getInt("diasMax"));
+            empleado.setEstado(rs.getInt("estado"));
+            listaEmpleado.add(empleado);
         }
-        return listaEmpleado;
+        
+        ps.close();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de empleados " + ex.getMessage());
     }
+
+    return listaEmpleado;
+}
      
      public void actualizarDiasMax(String dni, int nuevosDiasMax) {
         String sql = "UPDATE empleado SET diasMax = ? WHERE dni = ?";
@@ -152,8 +129,6 @@ public class EmpleadoData {
             int filasAfectadas = ps.executeUpdate();
 
             if (filasAfectadas > 0) {
-                
-                JOptionPane.showMessageDialog(null, "La licencia fue generada exitosamente");
             } else {
                 JOptionPane.showMessageDialog(null, "Error, la licencia no fue generada.");
             }

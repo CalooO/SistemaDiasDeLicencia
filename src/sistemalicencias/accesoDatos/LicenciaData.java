@@ -29,12 +29,12 @@ public class LicenciaData {
     }
     
     public void guardarLicencia(Licencia licencia){
-        String sql = "INSERT INTO licencia (IdEmpleado, FechaLicencia) VALUES (?, ?)";
+        String sql = "INSERT INTO licencia (FechaLicencia, dni) VALUES (?, ?)";
         
         try {
             PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-             ps.setInt(1, licencia.getEmpleado().getIdEmpleado());
-             ps.setDate(2, Date.valueOf(licencia.getFechaLicencia()));
+             ps.setDate(1, Date.valueOf(licencia.getFechaLicencia()));
+             ps.setString(2, licencia.getDni());
              ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();

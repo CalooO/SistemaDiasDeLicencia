@@ -21,8 +21,12 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import sistemalicencias.accesoDatos.DetalleLicenciaData;
 import sistemalicencias.accesoDatos.EmpleadoData;
+import sistemalicencias.accesoDatos.LicenciaData;
+import sistemalicencias.entidades.DetalleLicencia;
 import sistemalicencias.entidades.Empleado;
+import sistemalicencias.entidades.Licencia;
 
 /**
  *
@@ -70,7 +74,7 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
     if (!jtDocumento.getText().isEmpty()) {
         
         tabla.setRowCount(0);
-        for (Empleado empleado : ed.listarClientePorApellidoYdni(jtDocumento.getText(), "")) {
+        for (Empleado empleado : ed.listarEmpleadoPorDni(jtDocumento.getText())) {
             tabla.addRow(new Object[]{empleado.getApellido(), empleado.getNombre(),
                     empleado.getDni(), empleado.getTelefono(), empleado.getDiasMax()});
 
@@ -263,6 +267,26 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
             "", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
             if (x == 0){
                 ed.actualizarDiasMax(dni, dias-diasHabiles);
+                
+                ed.listarEmpleadoPorDni(dni);
+                
+                Licencia licencia = new Licencia();
+                licencia.setDni(dni);
+                licencia.setFechaLicencia(LocalDate.now());
+                LicenciaData ld = new LicenciaData();
+                ld.guardarLicencia(licencia);
+ 
+                
+                DetalleLicencia dl = new DetalleLicencia();
+                dl.setDiasPedidos(diasHabiles);
+                dl.setFechaInicial(fecha1);
+                dl.setFechaFinal(fecha2);
+                dl.setDni(dni);
+                
+                DetalleLicenciaData dld = new DetalleLicenciaData();
+                
+                dld.guardarDetalleLicencia(dl);
+                
                 listarEmpleados();
             }
 

@@ -5,24 +5,65 @@
  */
 package sistemalicencias.entidades;
 
+import java.util.Date;
+
 /**
  *
  * @author calo_
  */
 public class DetalleLicencia {
-    private int idDetalleVenta, diasRestantes;
+    private int idDetalleVenta, diasPedidos, idLicencia;
     private Licencia licencia;
-    private int dias;
-    
-    
+    private Date fechaInicial;
+    private Date fechaFinal;
+    private String dni;
+
+
     public DetalleLicencia(){
         
     }
 
-    public DetalleLicencia(int idDetalleVenta, int diasRestantes, Licencia licencia) {
+    public DetalleLicencia(int idDetalleVenta, int diasPedidos, Licencia licencia, Date fechaInicial, Date fechaFinal, int idLicencia, String dni) {
         this.idDetalleVenta = idDetalleVenta;
-        this.diasRestantes = diasRestantes;
+        this.diasPedidos = diasPedidos;
         this.licencia = licencia;
+        this.fechaInicial = fechaInicial;
+        this.fechaFinal = fechaFinal;
+        this.idLicencia = idLicencia;
+        this.dni = dni;
+    }
+    
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+    
+
+    public int getIdLicencia() {
+        return idLicencia;
+    }
+
+    public void setIdLicencia(int idLicencia) {
+        this.idLicencia = idLicencia;
+    }
+
+    public Date getFechaInicial() {
+        return fechaInicial;
+    }
+
+    public void setFechaInicial(Date fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
+
+    public Date getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
     }
 
     public int getIdDetalleVenta() {
@@ -33,12 +74,12 @@ public class DetalleLicencia {
         this.idDetalleVenta = idDetalleVenta;
     }
 
-    public int getDiasRestantes() {
-        return diasRestantes;
+    public int getDiasPedidos() {
+        return diasPedidos;
     }
 
-    public void setDiasRestantes(int diasRestantes) {
-        this.diasRestantes = diasRestantes;
+    public void setDiasPedidos(int diasPedidos) {
+        this.diasPedidos = diasPedidos;
     }
 
     public Licencia getLicencia() {
