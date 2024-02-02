@@ -1,6 +1,7 @@
 package sistemalicencias.views;
 
 import java.awt.Image;
+import java.sql.SQLException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -14,7 +15,7 @@ import sistemalicencias.entidades.Empleado;
 
 
 public class ListaEmpleados extends javax.swing.JInternalFrame {
-
+private int i = 0;
     /**
      * Creates new form ListaEmpleados
      */
@@ -23,6 +24,7 @@ public class ListaEmpleados extends javax.swing.JInternalFrame {
         setearIcono(jLabel1, "src/Imagenes/uader.png");
         modelo();
         listarEmpleados();
+        
     }
 
     private DefaultTableModel tabla = new DefaultTableModel() {
@@ -176,7 +178,7 @@ public class ListaEmpleados extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(114, 114, 114))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(189, 189, 189)
+                .addGap(200, 200, 200)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -185,12 +187,12 @@ public class ListaEmpleados extends javax.swing.JInternalFrame {
                         .addComponent(jtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(85, 85, 85)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -280,23 +282,36 @@ public class ListaEmpleados extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        try{
-            EmpleadoData ed = new EmpleadoData();
+
+        try {
+        EmpleadoData ed = new EmpleadoData();
         Empleado emp = new Empleado();
-        emp = ed.buscarEmpleadoUnico(jtDocumento.getText());
-        
+        String dni = jtDocumento.getText();
+        emp = ed.buscarEmpleadoUnico(dni);
+
         int filaSeleccionada = jtTable.getSelectedRow();
-        emp.setApellido(tabla.getValueAt(filaSeleccionada, 0).toString());
-        emp.setNombre(tabla.getValueAt(filaSeleccionada, 0).toString());
-        emp.setTelefono(tabla.getValueAt(filaSeleccionada, 0).toString());
-        
-        ed.modificarEmpleado(emp);
-        
-        } catch (java.lang.ArrayIndexOutOfBoundsException ex){
+
+        if (filaSeleccionada == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione un empleado", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+
+        emp.setApellido(tabla.getValueAt(filaSeleccionada, 0).toString());
+        emp.setNombre(tabla.getValueAt(filaSeleccionada, 1).toString());
+        emp.setTelefono(tabla.getValueAt(filaSeleccionada, 3).toString());
+
+        ed.modificarEmpleado(emp, dni);
+        int todoCorrecto = 1;
         
+        if(todoCorrecto == 1){
+            i = 0;
+        }
+
+    }  catch (java.lang.ArrayIndexOutOfBoundsException ex){
+            JOptionPane.showMessageDialog(this, "Seleccione un empleado", "Error", JOptionPane.WARNING_MESSAGE);
+    }
+        
+       
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -308,28 +323,24 @@ public class ListaEmpleados extends javax.swing.JInternalFrame {
     private void jtTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTableMouseClicked
         // TODO add your handling code here:
         
-        if(jtTable.getSelectedRow() != -1){
-            int filaSeleccionada = jtTable.getSelectedRow();
-            String dni = (String) tabla.getValueAt(filaSeleccionada, 2);
-            jtDocumento.setText(dni);
-        }
-        listarEmpleados();
-        jtTable.selectAll();
-        
-        /*
-        if(jtTable.getSelectedRow() != -1){
-            int filaSeleccionada = jtTable.getSelectedRow();
-            String dni = (String) tabla.getValueAt(filaSeleccionada, 2);
-            jtDocumento.setText(dni);
-        }
-        
-        int i = 0;
-        
-        if(i == 1){
-            listarEmpleados();
-        }
             
-            //jtTable.selectAll();*/
+            if(i == 0){
+                //if(jtTable.getSelectedRow() != -1){
+                    int filaSeleccionada = jtTable.getSelectedRow();
+                    String dni = (String) tabla.getValueAt(filaSeleccionada, 2);
+                    jtDocumento.setText(dni);
+                    listarEmpleados();
+                    jtTable.selectAll();
+                //}
+                i=1;
+                System.out.println(i);
+            }
+            
+        
+        //
+        //jtTable.selectAll();
+        
+       
     }//GEN-LAST:event_jtTableMouseClicked
 
     private void jtDocumentoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jtDocumentoComponentAdded
@@ -341,6 +352,7 @@ public class ListaEmpleados extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         jtDocumento.setText("");
         listarEmpleados();
+        i=0;
     }//GEN-LAST:event_jButton4ActionPerformed
    
     
@@ -385,5 +397,4 @@ public class ListaEmpleados extends javax.swing.JInternalFrame {
 
     }
 
-    
 }

@@ -193,13 +193,14 @@ public class EmpleadoData {
     return listaEmpleado;
 }
 
-    public void modificarEmpleado(Empleado empleado){
-        String sql = "UPDATE empleado SET apellido=?, nombre=?, telefono=?";
+    public void modificarEmpleado(Empleado empleado, String dni){
+        String sql = "UPDATE empleado SET apellido=?, nombre=?, telefono=? WHERE dni LIKE ?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, empleado.getApellido());
             ps.setString(2, empleado.getNombre());
             ps.setString(3, empleado.getTelefono());
+            ps.setString(4, dni);
             
             int todoCorrecto = ps.executeUpdate();
             if(1==todoCorrecto){
