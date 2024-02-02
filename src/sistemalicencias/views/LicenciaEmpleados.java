@@ -66,7 +66,7 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
         columnModel.getColumn(1).setPreferredWidth(80);
         columnModel.getColumn(2).setPreferredWidth(80);
         columnModel.getColumn(3).setPreferredWidth(80);
-        columnModel.getColumn(4).setPreferredWidth(50);
+        columnModel.getColumn(4).setPreferredWidth(20);
     }
     
     public void listarEmpleados() {
@@ -159,6 +159,7 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Pedir licencia");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +167,7 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Volver al menu");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,33 +180,36 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(255, 255, 255)
-                .addComponent(jLabel4)
-                .addGap(29, 29, 29)
-                .addComponent(jtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(255, 255, 255)
+                        .addComponent(jLabel4)
+                        .addGap(29, 29, 29)
+                        .addComponent(jtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(266, 266, 266)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(jtFechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(jButton1)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(133, Short.MAX_VALUE)
+                .addContainerGap(131, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(197, 197, 197))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2)
-                                    .addComponent(jtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(114, 114, 114))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,17 +222,19 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
                     .addComponent(jtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jtFechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(79, 79, 79))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,8 +253,8 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        Date fecha1 = new Date();
+        try{
+          Date fecha1 = new Date();
         Date fecha2 = new Date();
         
         fecha1 = jtFechaInicio.getDate();
@@ -255,17 +262,21 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
         
         int diasHabiles = calcularDiasHabiles(fecha1, fecha2);
 
-        
-        if(jtTable.getSelectedRow() != -1){
+        if(fecha1.before(fecha2)){
+            if(jtTable.getSelectedRow() != -1){
             int filaSeleccionada = jtTable.getSelectedRow();
-            String dni = (String) tabla.getValueAt(filaSeleccionada, 2);
             int dias = (int) tabla.getValueAt(filaSeleccionada, 4);
+            
+            if(diasHabiles <= dias && diasHabiles > 0){
+                String dni = (String) tabla.getValueAt(filaSeleccionada, 2);
+            
             
             EmpleadoData ed = new EmpleadoData();
             
             int x = JOptionPane.showConfirmDialog(this, "¿Realmente quiere pedir esta licencia?",
             "", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
             if (x == 0){
+                Date fechaAhora = convertirLocalDateTimeADate(LocalDateTime.now());
                 ed.actualizarDiasMax(dni, dias-diasHabiles);
                 
                 ed.listarEmpleadoPorDni(dni);
@@ -278,6 +289,7 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
  
                 
                 DetalleLicencia dl = new DetalleLicencia();
+                dl.setFechaLicencia(fechaAhora);
                 dl.setDiasPedidos(diasHabiles);
                 dl.setFechaInicial(fecha1);
                 dl.setFechaFinal(fecha2);
@@ -290,9 +302,22 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
                 listarEmpleados();
             }
 
+            } else {
+                JOptionPane.showMessageDialog(this, "Esta superando el limite de días disponibles para pedir", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+            
+         
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un empleado", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese una fecha valida", "Error", JOptionPane.WARNING_MESSAGE);
+        }  
+        } catch (java.lang.NullPointerException ex){
+            JOptionPane.showMessageDialog(this, "Complete los campos vacios o incorrectos", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDocumentoKeyReleased
@@ -317,13 +342,18 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
 
     private void jtTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTableMouseClicked
         // TODO add your handling code here:
-        if(jtTable.getSelectedRow() != -1){
+        try{
+            if(jtTable.getSelectedRow() != -1){
             int filaSeleccionada = jtTable.getSelectedRow();
             String dni = (String) tabla.getValueAt(filaSeleccionada, 2);
             jtDocumento.setText(dni);
         }
         listarEmpleados();
         jtTable.selectAll();
+        } catch (java.lang.NullPointerException ex){
+            JOptionPane.showMessageDialog(this, "Complete los campos", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jtTableMouseClicked
 
     private void jtDocumentoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jtDocumentoComponentAdded
@@ -379,10 +409,12 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
     }
     
    private static int calcularDiasHabiles(Date fechaInicio, Date fechaFin) {
-        Calendar cal = Calendar.getInstance();
+       int diasHabiles = 0;
+       try{
+           Calendar cal = Calendar.getInstance();
         cal.setTime(fechaInicio);
 
-        int diasHabiles = 0;
+        
         while (cal.getTime().before(fechaFin) || cal.getTime().equals(fechaFin)) {
             // Excluir sábados (Calendar.SATURDAY) y domingos (Calendar.SUNDAY)
             if (cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
@@ -391,6 +423,10 @@ public class LicenciaEmpleados extends javax.swing.JInternalFrame {
             cal.add(Calendar.DAY_OF_MONTH, 1); // Avanzar al siguiente día
         }
 
+        
+       } catch (java.lang.NullPointerException ex){
+           
+       }
         return diasHabiles;
     }
     

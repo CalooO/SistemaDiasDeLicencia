@@ -34,19 +34,24 @@ public class DetalleLicenciaData  {
     }  
     
     public void guardarDetalleLicencia(DetalleLicencia dl){
-        String sql = "INSERT into detallelicencia (diasPedidos, inicioLicencia, finLicencia, dni) VALUES (?,?,?,?) ";
+        String sql = "INSERT into detallelicencia (diasPedidos, fechaLicencia, inicioLicencia, finLicencia, dni) VALUES (?,?,?,?,?) ";
         try {
             PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dl.getDiasPedidos());
+            
+            java.util.Date fechaLicenciaUtil = dl.getFechaInicial();
+            java.sql.Date fechaLicenciaSql = new java.sql.Date(fechaLicenciaUtil.getTime());
+            ps.setDate(2, fechaLicenciaSql);
+            
             java.util.Date fechaInicialUtil = dl.getFechaInicial();
             java.sql.Date fechaInicialSql = new java.sql.Date(fechaInicialUtil.getTime());
-            ps.setDate(2, fechaInicialSql);
+            ps.setDate(3, fechaInicialSql);
 
             java.util.Date fechaFinalUtil = dl.getFechaFinal();
             java.sql.Date fechaFinalSql = new java.sql.Date(fechaFinalUtil.getTime());
-            ps.setDate(3, fechaFinalSql);
+            ps.setDate(4, fechaFinalSql);
             
-            ps.setString(4, dl.getDni());
+            ps.setString(5, dl.getDni());
 
             ps.executeUpdate();
             
@@ -60,37 +65,36 @@ public class DetalleLicenciaData  {
             ps.close();
             
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null,"Error al acceder a la tabla de los empleados "+ex.getMessage());
+            System.out.println("Error");
         }
     }
     
-    public ArrayList listarDetalles(String dni){
-        String sql = "SELECT * FROM detallelicencia WHERE dni = ?";
-        ArrayList<DetalleLicencia> detallel = new ArrayList<>();
+    public List listarDetalles(String dni, int year){
+        String sql = "SELECT * FROM detallelicencia WHERE dni = ? AND YEAR(fechaLicencia) = ?";
+        List<DetalleLicencia> detallel = new ArrayList<>();
         
         
     try {
-        PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-        dni = dni + "%";
-        ps = con.prepareStatement(sql);
-        ps.setString(1, dni);
-
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            DetalleLicencia dl = new DetalleLicencia();
-            dl.setDiasPedidos(rs.getInt("diasPedidos"));
-            dl.setFechaInicial(rs.getDate("inicioLicencia"));
-            dl.setFechaFinal(rs.getDate("FinLicencia"));
-            dl.setDni(rs.getString("dni"));
-            
-            detallel.add(dl);
-        }
-        
-        ps.close();
+            try (PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, dni);
+                ps.setInt(2, year);
+                
+                ResultSet rs = ps.executeQuery();
+                
+                while (rs.next()) {
+                    DetalleLicencia dl = new DetalleLicencia();
+                    dl.setIdDetalleVenta(rs.getInt("idDetalleLicencia"));
+                    dl.setFechaLicencia(rs.getDate("fechaLicencia"));
+                    dl.setDiasPedidos(rs.getInt("diasPedidos"));
+                    dl.setFechaInicial(rs.getDate("inicioLicencia"));
+                    dl.setFechaFinal(rs.getDate("FinLicencia"));
+                    dl.setDni(rs.getString("dni"));
+                    
+                    detallel.add(dl);
+                }   }
 
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de empleados " + ex.getMessage());
+        JOptionPane.showMessageDialog(null, "Error " + ex.getMessage());
     }
     return detallel;
     }

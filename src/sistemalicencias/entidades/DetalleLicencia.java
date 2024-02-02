@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class DetalleLicencia {
     private int idDetalleVenta, diasPedidos, idLicencia;
-    private Licencia licencia;
+    private Date fechaLicencia;
     private Date fechaInicial;
     private Date fechaFinal;
     private String dni;
@@ -23,10 +23,10 @@ public class DetalleLicencia {
         
     }
 
-    public DetalleLicencia(int idDetalleVenta, int diasPedidos, Licencia licencia, Date fechaInicial, Date fechaFinal, int idLicencia, String dni) {
+    public DetalleLicencia(int idDetalleVenta, int diasPedidos, Date fechaLicencia, Date fechaInicial, Date fechaFinal, int idLicencia, String dni) {
         this.idDetalleVenta = idDetalleVenta;
         this.diasPedidos = diasPedidos;
-        this.licencia = licencia;
+        this.fechaLicencia = fechaLicencia;
         this.fechaInicial = fechaInicial;
         this.fechaFinal = fechaFinal;
         this.idLicencia = idLicencia;
@@ -82,13 +82,15 @@ public class DetalleLicencia {
         this.diasPedidos = diasPedidos;
     }
 
-    public Licencia getLicencia() {
-        return licencia;
+    public Date getFechaLicencia() {
+        return fechaLicencia;
     }
 
-    public void setLicencia(Licencia licencia) {
-        this.licencia = licencia;
+    public void setFechaLicencia(Date fechaLicencia) {
+        this.fechaLicencia = fechaLicencia;
     }
+
+
     
     
 }

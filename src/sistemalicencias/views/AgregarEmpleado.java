@@ -147,7 +147,7 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(80, 80, 80)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -173,7 +173,7 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
-                .addGap(0, 73, Short.MAX_VALUE))
+                .addGap(0, 53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -203,6 +203,12 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
         try {
             
                 if (!jtApellido.getText().isEmpty() && !jtNombre.getText().isEmpty() && jtFecha.getDate() != null && !jtDocumento.getText().isEmpty()) {
+                    
+                        int i = 0;
+                        for (Empleado empleado : ed.buscarEmpleadoExistente(jtDocumento.getText())) {
+                                i = i+1;
+                        }
+                    
                     String apellido = jtApellido.getText();
                     String nombre = jtNombre.getText();
                     String documento = jtDocumento.getText();
@@ -213,7 +219,7 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
                     Empleado empleado = new Empleado();
                     empleado.setApellido(apellido);
                     empleado.setNombre(nombre);
-                    if(jtTelefono.getText() == null){
+                    if(jtTelefono.getText().isEmpty()){
                         empleado.setTelefono("No ingresado");
                     } else {
                         empleado.setTelefono(telefono);
@@ -221,14 +227,19 @@ public class AgregarEmpleado extends javax.swing.JInternalFrame {
                     empleado.setDni(documento);
                     empleado.setFechaIngreso(fecha);
                     empleado.setDiasMax(calcularDias(fecha));
-                    System.out.println("Días máximos calculados: " + calcularDias(fecha));
-                    ed.guardarEmpleado(empleado);
                     
-                    jtNombre.setText("");
-                    jtApellido.setText("");
-                    jtDocumento.setText("");
-                    jtTelefono.setText("");
-                    jtFecha.setDate(null);
+                    if(i > 0){
+                        JOptionPane.showMessageDialog(this, "Ya existe un empleado con ese documento", "Error", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        ed.guardarEmpleado(empleado);
+                        jtNombre.setText("");
+                        jtApellido.setText("");
+                        jtDocumento.setText("");
+                        jtTelefono.setText("");
+                        jtFecha.setDate(null);
+                    }
+                    
+                    
                     
                     
                     } else {

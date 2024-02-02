@@ -140,5 +140,108 @@ public class EmpleadoData {
         }
     }
 
+    public void cambiarEstado(int estado, String dni){
+        String sql = "UPDATE empleado SET estado = ? WHERE dni = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, estado);
+            ps.setString(2, dni);
+            
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas > 0) {
+            } else {
+                JOptionPane.showMessageDialog(null, "Error, no fue posible cambiar el estado.");
+            }
+            
+            ps.close();
+        } catch (SQLException ex){
+            System.out.println("Error al ingresas a la tabla de empleados: " + ex.getMessage());
+        }
+    }
+     
+    public ArrayList<Empleado> buscarEmpleadoExistente(String dni) {
+    PreparedStatement ps = null;
+    String sql = "SELECT * FROM empleado WHERE dni LIKE ?";
+    ArrayList<Empleado> listaEmpleado = new ArrayList<>();
+
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setString(1, dni);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Empleado empleado = new Empleado();
+            empleado.setApellido(rs.getString("apellido"));
+            empleado.setNombre(rs.getString("nombre"));
+            empleado.setDni(rs.getString("dni"));
+            empleado.setTelefono(rs.getString("telefono"));
+            empleado.setFechaIngreso(rs.getDate("fechaIngreso"));
+            empleado.setDiasMax(rs.getInt("diasMax"));
+            empleado.setEstado(rs.getInt("estado"));
+            listaEmpleado.add(empleado);
+        }
+        
+        ps.close();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de empleados " + ex.getMessage());
+    }
+
+    return listaEmpleado;
+}
+
+    public void modificarEmpleado(Empleado empleado){
+        String sql = "UPDATE empleado SET apellido=?, nombre=?, telefono=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, empleado.getApellido());
+            ps.setString(2, empleado.getNombre());
+            ps.setString(3, empleado.getTelefono());
+            
+            int todoCorrecto = ps.executeUpdate();
+            if(1==todoCorrecto){
+                 JOptionPane.showMessageDialog(null,"Cliente modificado.");
+            } else {
+                JOptionPane.showMessageDialog(null,"Cliente no modificado.");
+            }
+            ps.close();
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla de empleados");
+        }
+    }
+    
+    public Empleado buscarEmpleadoUnico(String dni) {
+    String sql = "SELECT * FROM empleado WHERE dni LIKE ?";
+    Empleado empleado = null;  
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, dni);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            empleado = new Empleado();
+            empleado.setApellido(rs.getString("apellido"));
+            empleado.setNombre(rs.getString("nombre"));
+            empleado.setDni(rs.getString("dni"));
+            empleado.setTelefono(rs.getString("telefono"));
+            empleado.setFechaIngreso(rs.getDate("fechaIngreso"));
+            empleado.setDiasMax(rs.getInt("diasMax"));
+            empleado.setEstado(rs.getInt("estado"));
+        }
+
+        ps.close();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de empleados " + ex.getMessage());
+    }
+
+    return empleado;
+}
     
 }
+
